@@ -1,77 +1,95 @@
-/* PAGE NAVIGATION */
-function goToPage(n) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById("page" + n).classList.add("active");
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-function sayYes() {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById("lovePage").classList.add("active");
-}
+  /* PAGE SWITCH */
+  function showPage(id) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  }
 
-/* FLOATING HEARTS */
-const heartsContainer = document.getElementById("hearts-container");
-setInterval(() => {
-  const h = document.createElement("div");
-  h.className = "heart";
-  h.innerText = "❤️";
-  h.style.left = Math.random() * 100 + "vw";
-  h.style.animationDuration = (Math.random() * 3 + 4) + "s";
-  heartsContainer.appendChild(h);
-  setTimeout(() => h.remove(), 7000);
-}, 350);
+  /* MUSIC + HEARTBEAT */
+  const music = document.getElementById("bgMusic");
+  const heartbeat = document.getElementById("heartbeat");
+  let musicStarted = false;
 
-/* 🎵 MUSIC START ON PAGE 1 CLICK */
-const music = document.getElementById("bgMusic");
-const heartbeat = document.getElementById("heartbeat");
-let musicStarted = false;
+  function startMusic() {
+    if (musicStarted) return;
+    musicStarted = true;
 
-function startMusic() {
-  if (musicStarted) return;
-  musicStarted = true;
+    music.volume = 0;
+    music.play().catch(() => {});
 
-  music.volume = 0;
-  music.play().catch(() => {});
+    let v = 0;
+    const fade = setInterval(() => {
+      v += 0.02;
+      music.volume = Math.min(v, 0.7);
+      if (v >= 0.7) clearInterval(fade);
+    }, 100);
 
-  let v = 0;
-  const fade = setInterval(() => {
-    v += 0.02;
-    music.volume = Math.min(v, 0.7);
-    if (v >= 0.7) clearInterval(fade);
-  }, 100);
+    heartbeat.classList.add("active");
+  }
 
-  heartbeat.classList.add("active");
-}
+  /* PAGE 1 */
+  document.getElementById("p1yes").onclick = () => {
+    startMusic();
+    showPage("lovePage");
+  };
 
-/* 😈 FINAL PAGE – NO BUTTON ESCAPE + SOUND */
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const finalButtons = document.getElementById("finalButtons");
-const escapeSound = document.getElementById("escapeSound");
+  document.getElementById("p1no").onclick = () => {
+    startMusic();
+    showPage("page2");
+  };
 
-let last = 0;
-let flip = false;
+  /* PAGE 2 */
+  document.getElementById("p2yes").onclick = () => showPage("lovePage");
+  document.getElementById("p2no").onclick = () => showPage("page3");
 
-function escapeNo() {
-  const now = performance.now();
-  if (now - last < 60) return;
-  last = now;
+  /* PAGE 3 */
+  document.getElementById("p3yes").onclick = () => showPage("lovePage");
+  document.getElementById("p3no").onclick = () => showPage("page4");
 
-  flip
-    ? finalButtons.insertBefore(yesBtn, noBtn)
-    : finalButtons.insertBefore(noBtn, yesBtn);
+  /* FINAL PAGE ESCAPE 😈 */
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const finalButtons = document.getElementById("finalButtons");
+  const escapeSound = document.getElementById("escapeSound");
 
-  flip = !flip;
+  let flip = false;
+  let last = 0;
 
-  escapeSound.currentTime = 0;
-  escapeSound.play().catch(() => {});
-}
+  function escapeNo() {
+    const now = performance.now();
+    if (now - last < 60) return;
+    last = now;
 
-if (noBtn) {
+    flip
+      ? finalButtons.insertBefore(yesBtn, noBtn)
+      : finalButtons.insertBefore(noBtn, yesBtn);
+
+    flip = !flip;
+
+    escapeSound.currentTime = 0;
+    escapeSound.play().catch(() => {});
+  }
+
   noBtn.addEventListener("pointermove", escapeNo);
   noBtn.addEventListener("pointerdown", escapeNo);
-  noBtn.addEventListener("click", e => {
+  noBtn.onclick = e => {
     e.preventDefault();
     e.stopPropagation();
-  });
-}
+  };
+
+  yesBtn.onclick = () => showPage("lovePage");
+
+  /* FLOATING HEARTS */
+  const heartsContainer = document.getElementById("hearts-container");
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    heartsContainer.appendChild(h);
+    setTimeout(() => h.remove(), 7000);
+  }, 350);
+
+});
