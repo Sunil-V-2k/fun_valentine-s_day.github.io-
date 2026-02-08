@@ -21,16 +21,15 @@ setInterval(() => {
   setTimeout(() => h.remove(), 7000);
 }, 350);
 
-/* 🎵 MUSIC AUTOPLAY (MUTED) + UNMUTE ON INTERACTION */
+/* 🎵 MUSIC START ON PAGE 1 CLICK */
 const music = document.getElementById("bgMusic");
 const heartbeat = document.getElementById("heartbeat");
-let unmuted = false;
+let musicStarted = false;
 
-function unmuteMusic() {
-  if (unmuted) return;
-  unmuted = true;
+function startMusic() {
+  if (musicStarted) return;
+  musicStarted = true;
 
-  music.muted = false;
   music.volume = 0;
   music.play().catch(() => {});
 
@@ -40,23 +39,18 @@ function unmuteMusic() {
     music.volume = Math.min(v, 0.7);
     if (v >= 0.7) clearInterval(fade);
   }, 100);
+
+  heartbeat.classList.add("active");
 }
 
-["click", "pointerdown", "touchstart"].forEach(e =>
-  document.addEventListener(e, unmuteMusic, { once: true })
-);
-
-
-music.addEventListener("play", () => heartbeat.classList.add("active"));
-music.addEventListener("pause", () => heartbeat.classList.remove("active"));
-
-/* 😈 FINAL PAGE NO BUTTON ESCAPE + SOUND */
+/* 😈 FINAL PAGE – NO BUTTON ESCAPE + SOUND */
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const finalButtons = document.getElementById("finalButtons");
 const escapeSound = document.getElementById("escapeSound");
 
-let last = 0, flip = false;
+let last = 0;
+let flip = false;
 
 function escapeNo() {
   const now = performance.now();
@@ -80,31 +74,4 @@ if (noBtn) {
     e.preventDefault();
     e.stopPropagation();
   });
-
 }
-
-/* 🎵 START MUSIC ON FIRST BUTTON CLICK */
-const music = document.getElementById("bgMusic");
-const heartbeat = document.getElementById("heartbeat");
-let musicStarted = false;
-
-function startMusic() {
-  if (musicStarted) return;
-  musicStarted = true;
-
-  music.volume = 0;
-  music.play().catch(() => {});
-
-  // smooth fade-in
-  let v = 0;
-  const fade = setInterval(() => {
-    v += 0.02;
-    music.volume = Math.min(v, 0.7);
-    if (v >= 0.7) clearInterval(fade);
-  }, 100);
-
-  // start heartbeat
-  if (heartbeat) heartbeat.classList.add("active");
-}
-
-
