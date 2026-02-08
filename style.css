@@ -5,6 +5,11 @@
   font-family: "Poppins", sans-serif;
 }
 
+p {
+  margin-bottom: 25px;
+  line-height: 1.8; /* ← increase this */
+}
+
 body {
   height: 100vh;
   background: linear-gradient(135deg, #ff758c, #ff7eb3);
@@ -93,3 +98,4 @@ button {
   75% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
+
