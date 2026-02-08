@@ -12,10 +12,10 @@
   <div class="page active" id="page1">
     <h1>Hey… do you love me? ❤️</h1>
     <p>I’ve been meaning to ask you this 🥰</p>
-    <div class="buttons">
-      <button onclick="sayYes()">Yes</button>
-      <button onclick="goToPage(2)">No</button>
-    </div>
+  <div class="buttons">
+    <button onclick="startMusic(); sayYes()">Yes</button>
+    <button onclick="startMusic(); goToPage(2)">No</button>
+  </div>
   </div>
 
   <!-- PAGE 2 -->
@@ -68,9 +68,10 @@
   <div id="heartbeat"></div>
 
   <!-- MUSIC (AUTOPLAY MUTED) -->
-  <audio id="bgMusic" autoplay muted loop playsinline>
+  <audio id="bgMusic" loop playsinline>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
+
 
 
   <!-- ESCAPE SOUND -->
@@ -82,4 +83,5 @@
 </body>
 
 </html>
+
 
