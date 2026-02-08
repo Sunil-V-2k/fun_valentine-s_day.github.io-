@@ -12,10 +12,10 @@
   <div class="page active" id="page1">
     <h1>Hey… do you love me? ❤️</h1>
     <p>I’ve been meaning to ask you this 🥰</p>
-  <div class="buttons">
-    <button onclick="startMusic(); sayYes()">Yes</button>
-    <button onclick="startMusic(); goToPage(2)">No</button>
-  </div>
+    <div class="buttons">
+      <button onclick="startMusic(); sayYes()">Yes</button>
+      <button onclick="startMusic(); goToPage(2)">No</button>
+    </div>
   </div>
 
   <!-- PAGE 2 -->
@@ -42,8 +42,6 @@
   <div class="page" id="page4">
     <h1>Okay… destiny time 😈❤️</h1>
     <p>I think your heart already knows the answer 😉</p>
-
-
     <div class="buttons" id="finalButtons">
       <button id="yesBtn" onclick="sayYes()">Yes</button>
       <button id="noBtn">No</button>
@@ -54,34 +52,26 @@
   <div class="page" id="lovePage">
     <h1>I love you too ❤️</h1>
     <p>
-        You make my days brighter,<br>
-        my heart calmer,<br>
-        and my life better 💕
+      You make my days brighter,<br>
+      my heart calmer,<br>
+      and my life better 💕
     </p>
     <p>Happy Valentine’s Day 💘</p>
   </div>
 
-  <!-- HEARTS -->
+  <!-- EFFECTS -->
   <div id="hearts-container"></div>
-
-  <!-- HEARTBEAT -->
   <div id="heartbeat"></div>
 
-  <!-- MUSIC (AUTOPLAY MUTED) -->
+  <!-- AUDIO -->
   <audio id="bgMusic" loop playsinline>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-
-
-  <!-- ESCAPE SOUND -->
   <audio id="escapeSound" preload="auto">
     <source src="escape.mp3" type="audio/mpeg">
   </audio>
 
   <script src="script.js"></script>
 </body>
-
 </html>
-
-
