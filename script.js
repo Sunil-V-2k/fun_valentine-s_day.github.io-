@@ -82,3 +82,29 @@ if (noBtn) {
   });
 
 }
+
+/* 🎵 START MUSIC ON FIRST BUTTON CLICK */
+const music = document.getElementById("bgMusic");
+const heartbeat = document.getElementById("heartbeat");
+let musicStarted = false;
+
+function startMusic() {
+  if (musicStarted) return;
+  musicStarted = true;
+
+  music.volume = 0;
+  music.play().catch(() => {});
+
+  // smooth fade-in
+  let v = 0;
+  const fade = setInterval(() => {
+    v += 0.02;
+    music.volume = Math.min(v, 0.7);
+    if (v >= 0.7) clearInterval(fade);
+  }, 100);
+
+  // start heartbeat
+  if (heartbeat) heartbeat.classList.add("active");
+}
+
+
