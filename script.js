@@ -42,9 +42,10 @@ function unmuteMusic() {
   }, 100);
 }
 
-["click","pointerdown","touchstart","mousemove","keydown"].forEach(e =>
+["click", "pointerdown", "touchstart"].forEach(e =>
   document.addEventListener(e, unmuteMusic, { once: true })
 );
+
 
 music.addEventListener("play", () => heartbeat.classList.add("active"));
 music.addEventListener("pause", () => heartbeat.classList.remove("active"));
@@ -79,4 +80,5 @@ if (noBtn) {
     e.preventDefault();
     e.stopPropagation();
   });
+
 }
